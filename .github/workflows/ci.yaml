@@ -52,14 +52,14 @@ jobs:
           context: .
           file: ./Dockerfile
           load: true # Loads image into local docker daemon for Trivy scanning
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: backstage:test 
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Scan Image for Vulnerabilities (Trivy)
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ steps.meta.outputs.tags }}
+          image-ref: 'backstage:test'
           format: 'table'
           exit-code: '0' # Warn without failing initially; can be set to '1' for strict blocking
           ignore-unfixed: true
